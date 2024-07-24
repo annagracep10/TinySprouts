@@ -1,8 +1,8 @@
 // src/components/ProductDetailPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { NavBar } from '../components/NavBar';
 
 const ProductDetailPage = () => {
   const { type, id } = useParams();
@@ -46,17 +46,9 @@ const ProductDetailPage = () => {
 
   return (
     <div>
+      <NavBar></NavBar>
+      <div className='content'>
       <h1>Product Detail</h1>
-      <nav>
-        <ul>
-          <li>
-          <Link to="/">Home Page</Link>
-          </li>
-          <li>
-          <Link to="/products">Products</Link>
-          </li>
-        </ul>
-      </nav>
       <h2>{product.name}</h2>
       <p>Price: Rs {product.price}</p>
       {product.description && <p>Description: {product.description}</p>}
@@ -72,6 +64,9 @@ const ProductDetailPage = () => {
       {product.germinationTime && <p>Germination Time: {product.germinationTime} days</p>}
       {product.season && <p>Season: {product.season}</p>}
     </div>
+
+      </div>
+      
   );
 };
 

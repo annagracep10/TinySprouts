@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { NavBar } from '../components/NavBar';
 
 const ProductsPage = () => {
   const [plants, setPlants] = useState([]);
@@ -36,39 +36,34 @@ const ProductsPage = () => {
 
   return (
     <div>
-      <h1>Products</h1>
-      <nav>
+      <NavBar />
+      <div className="content">
+        <h1>Products</h1>
+        <h2>Plants</h2>
         <ul>
-          <li>
-          <Link to="/">Home Page</Link>
-          </li>
+          {plants.map((plant) => (
+            <li key={plant.id}>
+              <Link to={`/product/plant/${plant.id}`}>{plant.name}</Link> - Rs {plant.price}
+            </li>
+          ))}
         </ul>
-      </nav>
-      
-      <h2>Plants</h2>
-      <ul>
-        {plants.map((plant) => (
-          <li key={plant.id}>
-            <Link to={`/product/plant/${plant.id}`}>{plant.name} - Rs {plant.price}</Link>
-          </li>
-        ))}
-      </ul>
-      <h2>Planters</h2>
-      <ul>
-        {planters.map((planter) => (
-          <li key={planter.id}>
-            <Link to={`/product/planter/${planter.id}`}>{planter.name} - Rs {planter.price}</Link>
-          </li>
-        ))}
-      </ul>
-      <h2>Seeds</h2>
-      <ul>
-        {seeds.map((seed) => (
-          <li key={seed.id}>
-            <Link to={`/product/seed/${seed.id}`}>{seed.name} - Rs {seed.price}</Link>
-          </li>
-        ))}
-      </ul>
+        <h2>Planters</h2>
+        <ul>
+          {planters.map((planter) => (
+            <li key={planter.id}>
+              <Link to={`/product/planter/${planter.id}`}>{planter.name}</Link> - Rs {planter.price}
+            </li>
+          ))}
+        </ul>
+        <h2>Seeds</h2>
+        <ul>
+          {seeds.map((seed) => (
+            <li key={seed.id}>
+              <Link to={`/product/seed/${seed.id}`}>{seed.name}</Link> - Rs {seed.price}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

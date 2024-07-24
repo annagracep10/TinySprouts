@@ -1,0 +1,25 @@
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.content h1{
+    font-size: 3rem;
+  line-height: 1.1;
+}
+
+.content ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    
+}
+
+.content li {
+    margin-right: 2rem;
+  }
+
