@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 export const LoginForm = ({ setIsLogin }) => {
-  const [useremail, setUseremail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,9 +15,9 @@ export const LoginForm = ({ setIsLogin }) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>User Email</label>
-          <input type="text" value={useremail} onChange={(event) => setUseremail(event.target.value)} />
+          <input type="email" required value={userEmail} onChange={(event) => setUserEmail(event.target.value)} />
           <label>Password</label>
-          <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+          <input type="password" required value={userPassword} onChange={(event) => setUserPassword(event.target.value)} />
         </div>
         <button type="submit">Login</button>
       </form>
