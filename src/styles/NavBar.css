@@ -2,14 +2,12 @@
   background-color: #0f0f0f;
   padding: 1rem;
   color: #fff;
-}
-
-nav{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
+  flex-wrap: wrap;
 }
-  
+
 .navbar h1 {
   margin: 0;
   font-size: 1.5rem;
@@ -24,18 +22,18 @@ nav{
     
   }
   
-  nav li {
+  .navbar li {
     text-size-adjust: 4rem;
     margin-right: 2rem;
   }
   
- nav a {
+  .navbar a {
     color: #18eb18;
     text-decoration: none;
     font-size: 1rem;
   }
   
-  nav a:hover {
+  .navbar a:hover {
     color: #c5e0c6;
     text-decoration: none;
   }

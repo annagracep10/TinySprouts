@@ -9,17 +9,13 @@ import "../styles/NavBar.css"
 
     return (
         <div className='navbar'>
-            <nav>
+            <div>
                 <h1>Tiny Sprouts</h1>
+            </div>
+            <div>
                 <ul>
                     <li>
                         <Link to="/">Home Page</Link>
-                    </li>
-                    <li>
-                        <Link to="">Login</Link>
-                    </li>
-                    <li>
-                        <Link to="">Register</Link>
                     </li>
                     <li>
                         <Link to="/products">Products</Link>
@@ -36,10 +32,8 @@ import "../styles/NavBar.css"
                     <li>
                         <Link to="/">Logout</Link>
                     </li>
-                    
-                
                 </ul>
-            </nav>
+            </div>
         </div>
     )
 };
