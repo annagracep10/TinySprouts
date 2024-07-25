@@ -11,18 +11,21 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 
 body {
   margin: 0;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
-  font-size: 7rem;
+  font-size: 4rem;
+  line-height: 1.1;
+}
+
+h2{
+  font-size: 2rem;
   line-height: 1.1;
 }
 
@@ -41,20 +44,13 @@ button {
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
+
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-a{
-  color: #646cff;
-  text-decoration: none;
-}
-
-a:hover{
-  color: #8c90e2;
-  
-}
 
 @media (prefers-color-scheme: light) {
   :root {

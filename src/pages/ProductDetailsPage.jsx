@@ -44,29 +44,41 @@ const ProductDetailPage = () => {
 
   if (!product) return <div>No product found</div>;
 
+  const imageUrl = `/images/${product.category}/${product.id}.jpg`;
+
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar />
       <div className='content'>
-      <h1>Product Detail</h1>
-      <h2>{product.name}</h2>
-      <p>Price: Rs {product.price}</p>
-      {product.description && <p>Description: {product.description}</p>}
-      {product.quantity !== undefined && <p>Stock Left: {product.quantity}</p>}
-      {product.category && <p>Category: {product.category}</p>}
-      {product.material && <p>Material: {product.material}</p>}
-      {product.dimensions && <p>Dimensions: {product.dimensions}</p>}
-      {product.color && <p>Color: {product.color}</p>}
-      {product.typeOfPlant && <p>Type of Plant: {product.typeOfPlant}</p>}
-      {product.sunlightRequirements && <p>Sunlight Requirements: {product.sunlightRequirements}</p>}
-      {product.wateringFrequency && <p>Watering Frequency: {product.wateringFrequency}</p>}
-      {product.seedType && <p>Seed Type: {product.seedType}</p>}
-      {product.germinationTime && <p>Germination Time: {product.germinationTime} days</p>}
-      {product.season && <p>Season: {product.season}</p>}
-    </div>
-
+        <h1>Product Detail</h1>
+        <div className='product-detail'>
+          <img
+            src={imageUrl}
+            alt={product.name}
+            className='product-image'
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = '/images/default.jpg';
+            }}
+          />
+          <div className='product-detailinfo'>
+            <h2>{product.name}</h2>
+            <p><strong>Price :</strong> Rs {product.price}</p>
+            {product.description && <p><strong>Description :</strong> {product.description}</p>}
+            {product.quantity !== undefined && <p><strong>Stock Left :</strong> {product.quantity}</p>}
+            {product.material && <p><strong>Material :</strong> {product.material}</p>}
+            {product.dimensions && <p><strong>Dimensions :</strong> {product.dimensions}</p>}
+            {product.color && <p><strong>Color :</strong> {product.color}</p>}
+            {product.typeOfPlant && <p><strong>Type of Plant :</strong> {product.typeOfPlant}</p>}
+            {product.sunlightRequirements && <p><strong>Sunlight Requirements :</strong> {product.sunlightRequirements}</p>}
+            {product.wateringFrequency && <p><strong>Watering Frequency :</strong> {product.wateringFrequency}</p>}
+            {product.seedType && <p><strong>Seed Type :</strong> {product.seedType}</p>}
+            {product.germinationTime && <p><strong>Germination Time :</strong> {product.germinationTime} days</p>}
+            {product.season && <p><strong>Season :</strong>{product.season}</p>}
+          </div>
+        </div>
       </div>
-      
+    </div>
   );
 };
 

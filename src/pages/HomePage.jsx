@@ -7,12 +7,10 @@ const HomePage = () => {
   return (
     <div>
       <NavBar/>
-      <div className='content'>
-        <img src="/images/image.png" alt=" Nursery Picture" 
-        style={{
-        
-          objectFit: 'cover', 
-        }}/>
+      <div className="indexcontent">
+      <h1>Welcome to Tiny Sprouts</h1>
+      <h2>Grow Plants - Go green </h2>
+      <img src="/images/plantlogo.png" alt="plantlogo" />
       </div>
       
     </div>

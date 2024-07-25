@@ -8,23 +8,19 @@ import "../styles/NavBar.css"
     const location = useLocation();
 
     return (
-        <div>
+        <div className='navbar'>
             <nav>
                 <h1>Tiny Sprouts</h1>
                 <ul>
                     <li>
                         <Link to="/">Home Page</Link>
                     </li>
-                    {location.pathname === '/' && (
-                        <>
-                            <li>
-                                <Link to="">Login</Link>
-                            </li>
-                            <li>
-                                <Link to="">Register</Link>
-                            </li>
-                        </>
-                    )}
+                    <li>
+                        <Link to="">Login</Link>
+                    </li>
+                    <li>
+                        <Link to="">Register</Link>
+                    </li>
                     <li>
                         <Link to="/products">Products</Link>
                     </li>

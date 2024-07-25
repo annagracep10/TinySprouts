@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { NavBar } from '../components/NavBar';
+import "../styles/Content.css"
+import "../styles/Product.css"
+
 
 const ProductsPage = () => {
   const [plants, setPlants] = useState([]);
@@ -39,33 +42,71 @@ const ProductsPage = () => {
       <NavBar />
       <div className="content">
         <h1>Products</h1>
+        
         <h2>Plants</h2>
-        <ul>
+        <div className="product-container">
           {plants.map((plant) => (
-            <li key={plant.id}>
-              <Link to={`/product/plant/${plant.id}`}>{plant.name}</Link> - Rs {plant.price}
-            </li>
+            <div key={plant.id} className="product-item">
+              <Link to={`/product/plant/${plant.id}`}>
+                <img 
+                  src={`/images/plant/${plant.id}.jpg`} 
+                  alt={plant.name} 
+                  className="product-image" 
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
+                />
+              </Link>     
+                <div className="product-info">
+                  <span className="product-name">{plant.name}</span>
+                  <span className="product-price">Rs {plant.price}</span>
+                </div>
+              
+            </div>
           ))}
-        </ul>
+        </div>
+        
         <h2>Planters</h2>
-        <ul>
+        <div className="product-container">
           {planters.map((planter) => (
-            <li key={planter.id}>
-              <Link to={`/product/planter/${planter.id}`}>{planter.name}</Link> - Rs {planter.price}
-            </li>
+            <div key={planter.id} className="product-item">
+              <Link to={`/product/planter/${planter.id}`}>
+                <img 
+                  src={`/images/planter/${planter.id}.jpg`} 
+                  alt={planter.name} 
+                  className="product-image" 
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
+                />
+              </Link>
+                <div className="product-info">
+                  <span className="product-name">{planter.name}</span>
+                  <span className="product-price">Rs {planter.price}</span>
+                </div>
+              
+            </div>
           ))}
-        </ul>
+        </div>
+        
         <h2>Seeds</h2>
-        <ul>
+        <div className="product-container">
           {seeds.map((seed) => (
-            <li key={seed.id}>
-              <Link to={`/product/seed/${seed.id}`}>{seed.name}</Link> - Rs {seed.price}
-            </li>
+            <div key={seed.id} className="product-item">
+              <Link to={`/product/seed/${seed.id}`}>
+                <img 
+                  src={`/images/seed/${seed.id}.jpg`} 
+                  alt={seed.name} 
+                  className="product-image" 
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
+                />
+              </Link>
+                <div className="product-info">
+                  <span className="product-name">{seed.name}</span>
+                  <span className="product-price">Rs {seed.price}</span>
+                </div>
+              
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
 };
-
 export default ProductsPage;
