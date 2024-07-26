@@ -1,17 +1,45 @@
 import React, { useState } from "react";
 
-export const LoginForm = ({ setIsLogin }) => {
+export const LoginForm = ({ setIsLogin, setUser }) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle login logic here
-    console.log("Login submitted:", { useremail, password });
+    const loginData = {
+      userEmail,
+      userPassword,
+    };
+
+    try {
+      const response = await fetch('http://localhost:9090/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log("Login submitted:", result);
+      localStorage.setItem('user', JSON.stringify(result.user));
+      setUser(result.user);
+      setIsLogin(true);
+    } catch (error) {
+      console.error('Error:', error);
+      setError(error.message);
+    }
   };
 
   return (
     <div>
+      {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>User Email</label>

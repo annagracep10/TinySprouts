@@ -39,7 +39,6 @@ const ProductsPage = () => {
 
   return (
     <div>
-      <NavBar />
       <div className="content">
         <h1>Products</h1>
         

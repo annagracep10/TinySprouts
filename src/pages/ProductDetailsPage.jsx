@@ -48,7 +48,6 @@ const ProductDetailPage = () => {
 
   return (
     <div>
-      <NavBar />
       <div className='content'>
         <h1>Product Detail</h1>
         <div className='product-detail'>
@@ -74,7 +73,7 @@ const ProductDetailPage = () => {
             {product.wateringFrequency && <p><strong>Watering Frequency :</strong> {product.wateringFrequency}</p>}
             {product.seedType && <p><strong>Seed Type :</strong> {product.seedType}</p>}
             {product.germinationTime && <p><strong>Germination Time :</strong> {product.germinationTime} days</p>}
-            {product.season && <p><strong>Season :</strong>{product.season}</p>}
+            {product.season && <p><strong>Season :</strong> {product.season}</p>}
           </div>
         </div>
       </div>
