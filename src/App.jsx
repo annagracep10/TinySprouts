@@ -5,6 +5,7 @@ import ProductsPage from './pages/ProductsPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import OrdersPage from './pages/OrdersPage';
 import { NavBar } from './components/NavBar';
+import CartPage from './pages/CartPage';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -17,6 +18,7 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/product/:type/:id" element={<ProductDetailsPage />} />
         <Route path="/orders" element={<OrdersPage />} />
+        <Route path="/cart" element={<CartPage/>} />
       </Routes>
     </Router>
   );

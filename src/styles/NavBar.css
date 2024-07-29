@@ -47,3 +47,9 @@
     font-size: 16px;
     padding: 0;
   }
+
+  .logout-button:hover {
+    color: #c5e0c6;
+    text-decoration: none;
+    background: none;
+  }

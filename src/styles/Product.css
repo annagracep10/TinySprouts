@@ -72,3 +72,15 @@
     margin: 5px 0;
     text-align: left;
   }
+
+  .addCart button{
+    color:  black;
+    background-color: rgb(192, 207, 219);
+  }
+
+  .addCart button:hover{
+    color:  black;
+    background-color: rgb(32, 126, 214);
+    border: none;
+    
+  }

@@ -1,0 +1,38 @@
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+.cart-table th, .cart-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.cart-table th {
+  background-color: #f2f2f2;
+}
+
+.cart-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+.cart-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+button {
+  color:  black;
+    background-color: rgb(192, 207, 219);
+}
+
+button:hover {
+  background-color: #c22307;
+  border: none;
+}

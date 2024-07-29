@@ -1,14 +1,14 @@
-// src/components/ProductDetailPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { NavBar } from '../components/NavBar';
 
 const ProductDetailPage = () => {
   const { type, id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [cartError, setCartError] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,7 +31,7 @@ const ProductDetailPage = () => {
         setLoading(false);
       } catch (err) {
         console.error('Error fetching product:', err);
-        setError(err);
+        setError(err.response ? err.response.data.message : err.message);
         setLoading(false);
       }
     };
@@ -39,8 +39,33 @@ const ProductDetailPage = () => {
     fetchProduct();
   }, [type, id]);
 
+  const addToCart = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      alert('Please log in to add items to the cart.');
+      return;
+    }
+
+    const cartItem = {
+      productId: product.id,
+      productName: product.name,
+      quantity: quantity,
+      productType: type,
+    };
+
+    try {
+      await axios.post(`http://localhost:9090/api/cart/${user.userId}/add`, cartItem);
+      alert('Item added to cart');
+      setCartError(null);  // Clear any previous errors
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      const errorMessage = err.response ? err.response.data.message : 'Failed to add item to cart';
+      setCartError(errorMessage);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.response ? error.response.data.message : error.message}</div>;
+  if (error) return <div>Error: {error}</div>;
 
   if (!product) return <div>No product found</div>;
 
@@ -74,6 +99,15 @@ const ProductDetailPage = () => {
             {product.seedType && <p><strong>Seed Type :</strong> {product.seedType}</p>}
             {product.germinationTime && <p><strong>Germination Time :</strong> {product.germinationTime} days</p>}
             {product.season && <p><strong>Season :</strong> {product.season}</p>}
+            <div className="addCart">
+              <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
+              <span>{quantity}</span>
+              <button onClick={() => setQuantity(quantity + 1)}>+</button>
+              <br></br>
+              <br></br>
+              <button onClick={addToCart}>Add to Cart</button>
+              {cartError && <div className="error">{cartError}</div>}
+            </div>  
           </div>
         </div>
       </div>

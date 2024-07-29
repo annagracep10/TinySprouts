@@ -26,13 +26,10 @@ export const NavBar = ({ setUser }) => {
             <Link to="/products">Products</Link>
           </li>
           <li>
-            <Link to="">Cart</Link>
+            <Link to="/cart">Cart</Link>
           </li>
           <li>
             <Link to="/orders">Your Orders</Link>
-          </li>
-          <li>
-            <Link to="">Account Details</Link>
           </li>
           <li>
             <button onClick={handleLogout} className="logout-button">Logout</button>
