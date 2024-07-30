@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import {  useNavigate  } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const ProductDetailPage = ({ user }) => {
+  const navigate = useNavigate();
   const { type, id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,6 +44,7 @@ const ProductDetailPage = ({ user }) => {
   const addToCart = async () => {
     if (!user) {
       alert('Please log in to add items to the cart.');
+      navigate('/');
       return;
     }
   

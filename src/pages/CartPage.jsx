@@ -90,7 +90,7 @@ const CartPage = ({ user }) => {
 
   // If there's an error and the user is logged in
   if (error && !cartItems.length) return (
-    <div>
+    <div className="content">
       <h1>Cart</h1> 
       <div>Your cart is empty</div>
     </div>

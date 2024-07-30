@@ -1,5 +1,11 @@
 .orders-page {
   padding: 20px;
+  display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .orders-table {
