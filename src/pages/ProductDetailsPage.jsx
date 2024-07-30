@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const ProductDetailPage = () => {
+const ProductDetailPage = ({ user }) => {
   const { type, id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,29 +40,41 @@ const ProductDetailPage = () => {
   }, [type, id]);
 
   const addToCart = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       alert('Please log in to add items to the cart.');
       return;
     }
-
+  
     const cartItem = {
       productId: product.id,
       productName: product.name,
       quantity: quantity,
       productType: type,
     };
+  
+    const token = localStorage.getItem('token');
 
-    try {
-      await axios.post(`http://localhost:9090/api/cart/${user.userId}/add`, cartItem);
-      alert('Item added to cart');
-      setCartError(null);  // Clear any previous errors
-    } catch (err) {
-      console.error('Error adding to cart:', err);
-      const errorMessage = err.response ? err.response.data.message : 'Failed to add item to cart';
-      setCartError(errorMessage);
-    }
+  const requestConfig = {
+    method: 'post',
+    url: `http://localhost:9090/api/cart/${user.userId}/add`,
+    data: cartItem,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
+
+  console.log('Request Configuration:', requestConfig);
+
+  try {
+    await axios(requestConfig);
+    alert('Item added to cart');
+    setCartError(null);  // Clear any previous errors
+  } catch (err) {
+    console.error('Error adding to cart:', err);
+    const errorMessage = err.response ? err.response.data.message : 'Failed to add item to cart';
+    setCartError(errorMessage);
+  }
+};
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

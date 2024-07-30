@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "../styles/OrdersPage.css";
-import { NavBar } from '../components/NavBar';
 
-const OrdersPage = ({ setUser, user }) => {
+const OrdersPage = ({ user }) => {
   const [orders, setOrders] = useState([]);
   const [userId, setUserId] = useState(null);
 
@@ -11,11 +10,16 @@ const OrdersPage = ({ setUser, user }) => {
       setUserId(user.userId);
       fetchOrders(user.userId);
     }
-  }, []);
+  }, [user]);
 
   const fetchOrders = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:9090/api/orders/${userId}`);
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:9090/api/orders/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch orders');
       }
@@ -28,8 +32,12 @@ const OrdersPage = ({ setUser, user }) => {
 
   const cancelOrder = async (orderId) => {
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`http://localhost:9090/api/orders/cancel/${orderId}`, {
-        method: 'PUT'
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (!response.ok) {
         throw new Error('Failed to cancel order');

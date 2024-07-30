@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../styles/CartPage.css";
 
-const CartPage = ({ setUser, user }) => {
+const CartPage = ({ user }) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +17,15 @@ const CartPage = ({ setUser, user }) => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:9090/api/cart/${user.userId}`);
+        const token = localStorage.getItem('token');
+        const response = await axios.get(
+          `http://localhost:9090/api/cart/${user.userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setCartItems(response.data.cart.items);  // Accessing the `items` array within the `cart` object
         setLoading(false);
       } catch (err) {
@@ -27,7 +35,7 @@ const CartPage = ({ setUser, user }) => {
     };
 
     fetchCartItems();
-  }, []);
+  }, [user]);
 
   const removeFromCart = async (itemId) => {
     if (!user) {
@@ -36,7 +44,15 @@ const CartPage = ({ setUser, user }) => {
     }
 
     try {
-      await axios.delete(`http://localhost:9090/api/cart/${user.userId}/remove/${itemId}`);
+      const token = localStorage.getItem('token');
+      await axios.delete(
+        `http://localhost:9090/api/cart/${user.userId}/remove/${itemId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setCartItems(cartItems.filter(item => item.id !== itemId));  // Ensure we're using the correct `id` field
     } catch (err) {
       alert('Failed to remove item from cart');
@@ -51,7 +67,16 @@ const CartPage = ({ setUser, user }) => {
     }
 
     try {
-      await axios.post(`http://localhost:9090/api/cart/${user.userId}/checkout`);
+      const token = localStorage.getItem('token');
+      await axios.post(
+        `http://localhost:9090/api/cart/${user.userId}/checkout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       alert('Checkout successful!');
       setCartItems([]);  // Clear the cart on successful checkout
     } catch (err) {
@@ -59,6 +84,7 @@ const CartPage = ({ setUser, user }) => {
       console.error('Error during checkout:', err);
     }
   };
+
 
   if (loading) return <div>Loading...</div>;
 
