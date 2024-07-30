@@ -2,18 +2,18 @@ import React, { useState } from "react";
 
 export const LoginForm = ({ setIsLogin, setUser }) => {
   const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const loginData = {
       userEmail,
-      userPassword,
+      password,
     };
 
     try {
-      const response = await fetch('http://localhost:9090/api/user/login', {
+      const response = await fetch('http://localhost:9090/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const LoginForm = ({ setIsLogin, setUser }) => {
           <label>User Email</label>
           <input type="email" required value={userEmail} onChange={(event) => setUserEmail(event.target.value)} />
           <label>Password</label>
-          <input type="password" required value={userPassword} onChange={(event) => setUserPassword(event.target.value)} />
+          <input type="password" required value={password} onChange={(event) => setPassword(event.target.value)} />
         </div>
         <button type="submit">Login</button>
       </form>
