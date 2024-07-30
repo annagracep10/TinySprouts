@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import "../styles/OrdersPage.css";
 import { NavBar } from '../components/NavBar';
 
-const OrdersPage = () => {
+const OrdersPage = ({ setUser, user }) => {
   const [orders, setOrders] = useState([]);
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setUserId(user.userId);
       fetchOrders(user.userId);

@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { NavBar } from '../components/NavBar.jsx';
+import React, { useState } from 'react';
+import { NavBar } from '../components/NavBar';
 import "../styles/HomePage.css";
-import { LoginForm } from '../components/LoginForm.jsx';
-import { RegisterForm } from '../components/RegisterForm.jsx';
+import { LoginForm } from '../components/LoginForm';
+import { RegisterForm } from '../components/RegisterForm';
 
-const HomePage = () => {
+const HomePage = ({ setUser, user }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser) {
-      setUser(storedUser);
-    }
-  }, []);
 
   return (
     <div>
       <div className="indexcontent">
-        <div className='welcome'>
+        <div className="welcome">
           <h1>Welcome to Tiny Sprouts</h1>
-          <h2>Grow Plants - Go green </h2>
+          <h2>Grow Plants - Go Green</h2>
           <img src="/images/plantlogo.png" alt="plantlogo" />
         </div>
         <div className="form">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../styles/CartPage.css";
 
-const CartPage = () => {
+const CartPage = ({ setUser, user }) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +10,6 @@ const CartPage = () => {
 
   useEffect(() => {
     const fetchCartItems = async () => {
-      const user = JSON.parse(localStorage.getItem('user'));
       if (!user) {
         setError('Please log in to view cart items.');
         setLoading(false);
@@ -31,7 +30,6 @@ const CartPage = () => {
   }, []);
 
   const removeFromCart = async (itemId) => {
-    const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       alert('Please log in to remove items from the cart.');
       return;
@@ -47,7 +45,6 @@ const CartPage = () => {
   };
 
   const checkout = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       alert('Please log in to proceed with checkout.');
       return;

@@ -8,17 +8,28 @@ import { NavBar } from './components/NavBar';
 import CartPage from './pages/CartPage';
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        return JSON.parse(storedUser);
+      } catch (error) {
+        console.error('Error parsing user from localStorage:', error);
+        return null;
+      }
+    }
+    return null;
+  });
 
   return (
     <Router>
-      <NavBar setUser={setUser} />
+      <NavBar user={user} setUser={setUser} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage setUser={setUser} user={user} />} />
         <Route path="/products" element={<ProductsPage />} />
-        <Route path="/product/:type/:id" element={<ProductDetailsPage />} />
-        <Route path="/orders" element={<OrdersPage />} />
-        <Route path="/cart" element={<CartPage/>} />
+        <Route path="/product/:type/:id" element={<ProductDetailsPage setUser={setUser} user={user}/>} />
+        <Route path="/orders" element={<OrdersPage setUser={setUser} user={user}/>} />
+        <Route path="/cart" element={<CartPage setUser={setUser} user={user} />} />
       </Routes>
     </Router>
   );

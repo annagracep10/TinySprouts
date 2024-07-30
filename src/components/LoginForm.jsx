@@ -27,9 +27,24 @@ export const LoginForm = ({ setIsLogin, setUser }) => {
       }
 
       const result = await response.json();
-      console.log("Login submitted:", result);
-      localStorage.setItem('user', JSON.stringify(result.user));
-      setUser(result.user);
+      const { accessToken } = result;
+      localStorage.setItem('token', accessToken);
+
+      // Fetch user details with token
+      const userResponse = await fetch('http://localhost:9090/api/auth/user-details', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+
+      if (!userResponse.ok) {
+        throw new Error('Failed to fetch user details');
+      }
+
+      const userDetails = await userResponse.json();
+      localStorage.setItem('user', JSON.stringify(userDetails));
+      setUser(userDetails);
       setIsLogin(true);
     } catch (error) {
       console.error('Error:', error);

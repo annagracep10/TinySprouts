@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../styles/NavBar.css";
 
-export const NavBar = ({ setUser }) => {
-  const location = useLocation();
+export const NavBar = ({ user, setUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setUser(null);
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setUser(null);
     navigate('/');
   };
 
@@ -31,9 +31,16 @@ export const NavBar = ({ setUser }) => {
           <li>
             <Link to="/orders">Your Orders</Link>
           </li>
-          <li>
-            <button onClick={handleLogout} className="logout-button">Logout</button>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <button onClick={handleLogout} className="logout-button">Logout</button>
+              </li>
+              <li>
+                <span>Welcome, {user.userFullName}</span>
+              </li>
+            </>
+          ) : null}
         </ul>
       </div>
     </div>
