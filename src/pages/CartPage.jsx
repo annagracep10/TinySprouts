@@ -19,7 +19,7 @@ const CartPage = ({ user }) => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(
-          `http://localhost:9090/api/cart/${user.userId}`,
+          `http://localhost:9090/api/cart`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const CartPage = ({ user }) => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(
-        `http://localhost:9090/api/cart/${user.userId}/remove/${itemId}`,
+        `http://localhost:9090/api/cart/remove/${itemId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ const CartPage = ({ user }) => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:9090/api/cart/${user.userId}/checkout`,
+        `http://localhost:9090/api/cart/checkout`,
         {},
         {
           headers: {

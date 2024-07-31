@@ -15,7 +15,7 @@ const OrdersPage = ({ user }) => {
   const fetchOrders = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:9090/api/orders/${userId}`, {
+      const response = await fetch(`http://localhost:9090/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

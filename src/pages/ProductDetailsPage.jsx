@@ -59,14 +59,12 @@ const ProductDetailPage = ({ user }) => {
 
   const requestConfig = {
     method: 'post',
-    url: `http://localhost:9090/api/cart/${user.userId}/add`,
+    url: `http://localhost:9090/api/cart/add`,
     data: cartItem,
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-
-  console.log('Request Configuration:', requestConfig);
 
   try {
     await axios(requestConfig);
