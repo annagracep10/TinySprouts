@@ -3,7 +3,7 @@ import {  useNavigate  } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const ProductDetailPage = ({ user }) => {
+const ProductDetailPage = ({ user,setUser }) => {
   const navigate = useNavigate();
   const { type, id } = useParams();
   const [product, setProduct] = useState(null);
@@ -44,7 +44,6 @@ const ProductDetailPage = ({ user }) => {
   const addToCart = async () => {
     if (!user) {
       alert('Please log in to add items to the cart.');
-      navigate('/');
       return;
     }
   
@@ -71,9 +70,17 @@ const ProductDetailPage = ({ user }) => {
     alert('Item added to cart');
     setCartError(null);  // Clear any previous errors
   } catch (err) {
-    console.error('Error adding to cart:', err);
-    const errorMessage = err.response ? err.response.data.message : 'Failed to add item to cart';
-    setCartError(errorMessage);
+    if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+      alert('Session expired. Please log in again.');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setUser(null);
+      navigate('/');
+    } else {
+      console.error('Error adding to cart:', err);
+      const errorMessage = err.response ? err.response.data.message : 'Failed to add item to cart';
+      setCartError(errorMessage);
+    }
   }
 };
 

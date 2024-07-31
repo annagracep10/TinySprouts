@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import {  useNavigate  } from 'react-router-dom';
 import "../styles/OrdersPage.css";
 
-const OrdersPage = ({ user }) => {
+const OrdersPage = ({ user , setUser }) => {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [userId, setUserId] = useState(null);
 
@@ -20,13 +22,21 @@ const OrdersPage = ({ user }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (!response.ok) {
-        throw new Error('Failed to fetch orders');
-      }
-      const data = await response.json();
+
+      const data = Array.isArray(response.data.orders) ? response.data.orders : [];
       setOrders(data);
-    } catch (error) {
-      console.error('Error:', error);
+      setLoading(false);
+    } catch (err) {
+      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate('/');
+      } else {
+        setError('Failed to fetch orders');
+      }
+      setLoading(false);
     }
   };
 
@@ -42,10 +52,19 @@ const OrdersPage = ({ user }) => {
       if (!response.ok) {
         throw new Error('Failed to cancel order');
       }
-      fetchOrders(userId);  // Refresh orders after cancellation
-    } catch (error) {
-      console.error('Error:', error);
-    }
+      fetchOrders(userId);  
+    } catch (err) {
+        if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+          alert('Session expired. Please log in again.');
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setUser(null);
+          navigate('/');
+        } else {
+          setError('Failed to checkout');
+        }
+        setLoading(false);
+      }
   };
 
   return (

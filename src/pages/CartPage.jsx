@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import {  useNavigate  } from 'react-router-dom';
 import axios from 'axios';
 import "../styles/CartPage.css";
 
-const CartPage = ({ user }) => {
+const CartPage = ({ user , setUser }) => {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +31,15 @@ const CartPage = ({ user }) => {
         setCartItems(response.data.cart.items);  // Accessing the `items` array within the `cart` object
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch cart items');
+        if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+          alert('Session expired. Please log in again.');
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setUser(null);
+          navigate('/');
+        } else {
+          setError('Failed to fetch cart items');
+        }
         setLoading(false);
       }
     };
@@ -55,8 +65,16 @@ const CartPage = ({ user }) => {
       );
       setCartItems(cartItems.filter(item => item.id !== itemId));  // Ensure we're using the correct `id` field
     } catch (err) {
-      alert('Failed to remove item from cart');
-      console.error('Error removing item from cart:', err);
+      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate('/');
+      } else {
+        alert('Failed to remove item from cart');
+        console.error('Error removing item from cart:', err);
+      }
     }
   };
 
@@ -80,8 +98,16 @@ const CartPage = ({ user }) => {
       alert('Checkout successful!');
       setCartItems([]);  // Clear the cart on successful checkout
     } catch (err) {
-      setCheckoutError('Failed to complete checkout');
-      console.error('Error during checkout:', err);
+      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate('/');
+      } else {
+        setCheckoutError('Failed to complete checkout');
+        console.error('Error during checkout:', err);
+      }
     }
   };
 
