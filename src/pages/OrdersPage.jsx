@@ -83,9 +83,7 @@ const OrdersPage = ({ user, setUser }) => {
     <div>
       <div className="orders-page">
         <h1>Your Orders</h1>
-        {loading && <p>Loading...</p>}
-        {error && <p className="error">{error}</p>}
-        {orders.length === 0 && !loading && <p>No orders yet.</p>}
+        {orders.length === 0 && <p>No orders yet.</p>}
         {orders.length > 0 && (
           <table className="orders-table">
             <thead>

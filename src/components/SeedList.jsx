@@ -59,10 +59,11 @@ const SeedList = ({ setSelectedComponent, setSelectedSeed }) => {
               <td>{seed.season}</td>
               <td>{seed.quantity}</td>
               <td>Rs {seed.price}</td>
-              <td>
+              <td className="adminButton">
                 <button onClick={() => handleUpdate(seed)}>Update</button>
                 <button onClick={() => handleDelete(seed.id)}>Delete</button>
               </td>
+              
             </tr>
           ))}
         </tbody>

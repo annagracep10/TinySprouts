@@ -65,9 +65,9 @@ const UserList = ({ setSelectedComponent, setSelectedUser }) => {
             <tr key={user.userId}>
               <td>{user.userFullName}</td>
               <td>{user.userEmail}</td>
-              <td>{user.userRole}</td>
-              <td>
-                <button onClick={() => handleUpdateUser(user)}>Update</button>
+              <td>{user.userRole}</td>  
+              <td className="adminButton">
+                <button  onClick={() => handleUpdateUser(user)}>Update</button>
                 <button onClick={() => deleteUser(user.userId)}>Delete</button>
               </td>
             </tr>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import "../styles/NavBar.css";
 
 export const NavBar = ({ user, setUser }) => {
@@ -20,20 +20,30 @@ export const NavBar = ({ user, setUser }) => {
       <div>
         <ul>
           <li>
-            <Link to="/">Home Page</Link>
+            <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>
+              Home Page
+            </NavLink>
           </li>
           <li>
-            <Link to="/products">Products</Link>
+            <NavLink to="/products" className={({ isActive }) => isActive ? "active" : ""}>
+              Products
+            </NavLink>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <NavLink to="/cart" className={({ isActive }) => isActive ? "active" : ""}>
+              Cart
+            </NavLink>
           </li>
           <li>
-            <Link to="/orders">Your Orders</Link>
+            <NavLink to="/orders" className={({ isActive }) => isActive ? "active" : ""}>
+              Your Orders
+            </NavLink>
           </li>
           {user && user.userRole === 'ADMIN' && (
             <li>
-              <Link to="/admin">Admin Dashboard</Link>
+              <NavLink to="/admin" className={({ isActive }) => isActive ? "active" : ""}>
+                Admin Dashboard
+              </NavLink>
             </li>
           )}
           {user ? (

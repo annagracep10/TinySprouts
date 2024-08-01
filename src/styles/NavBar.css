@@ -24,18 +24,26 @@
   
   .navbar li {
     text-size-adjust: 4rem;
-    margin-right: 2rem;
+    margin-right: 2rem; 
   }
   
   .navbar a {
     color: #18eb18;
     text-decoration: none;
     font-size: 1rem;
+    padding: 0.5rem 1rem; 
+    border-radius: 4px; 
+    transition: background-color 0.2s, color 0.2s;
+    
   }
   
   .navbar a:hover {
     color: #c5e0c6;
     text-decoration: none;
+  }
+  .navbar a.active {
+    background-color: #639263; /* Green background for active link */
+    color: #fff; /* White text color for active link */
   }
 
   .logout-button {

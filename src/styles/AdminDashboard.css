@@ -17,7 +17,7 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: #007bff;
+    background-color: #22945b;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -27,8 +27,9 @@
   }
   
   .sidebar button:hover {
-    background-color: #0056b3;
+    background-color: #2d7048;
   }
+
   
   .main-content {
     flex-grow: 1;
@@ -59,23 +60,19 @@
     background-color: #f2f2f2;
   }
   
-  button {
-    background-color: #007bff;
+  .adminButton button{
     color: black;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    background-color: #44966d;
   }
+  .adminButton{
+    display: flex;
+    gap: 1rem;
+  }
+ 
   
-  button:hover {
-    background-color: #0056b3;
+  .adminButton button:hover {
+    background-color: #2d7048;
+    border: none;
   }
   
   form {

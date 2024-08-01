@@ -59,9 +59,10 @@ const PlantList = ({ setSelectedComponent, setSelectedPlant }) => {
               <td>{plant.wateringFrequency}</td>
               <td>{plant.quantity}</td>
               <td>Rs {plant.price}</td>
-              <td>
-                <button onClick={() => handleUpdate(plant)}>Update</button>
-                <button onClick={() => handleDelete(plant.id)}>Delete</button>
+              
+              <td className="adminButton">
+                <button  onClick={() => handleUpdate(plant)}>Update</button>
+                <button  onClick={() => handleDelete(plant.id)}>Delete</button>
               </td>
             </tr>
           ))}

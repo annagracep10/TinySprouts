@@ -58,11 +58,12 @@ const PlanterList = ({ setSelectedComponent, setSelectedPlanter }) => {
               <td>{planter.dimensions}</td>
               <td>{planter.color}</td>
               <td>{planter.quantity}</td>
-              <td>Rs {planter.price}</td>
-              <td>
+              <td>Rs {planter.price}</td>        
+              <td className="adminButton">
                 <button onClick={() => handleUpdate(planter)}>Update</button>
                 <button onClick={() => handleDelete(planter.id)}>Delete</button>
               </td>
+              
             </tr>
           ))}
         </tbody>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UpdatePlanter = ({ planter,setSelectedComponent  }) => {
+const UpdatePlanter = ({ planter, setSelectedComponent }) => {
   const [updatedPlanter, setUpdatedPlanter] = useState(planter);
   const [error, setError] = useState('');
+
   useEffect(() => {
     setUpdatedPlanter(planter);
   }, [planter]);
@@ -19,12 +20,12 @@ const UpdatePlanter = ({ planter,setSelectedComponent  }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    try{await axios.put(`http://localhost:9090/api/admin/planter/${planter.id}`, updatedPlanter, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    setSelectedComponent('PlanterList');
-  }
-    catch(error) {
+    try {
+      await axios.put(`http://localhost:9090/api/admin/planter/${updatedPlanter.id}`, updatedPlanter, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setSelectedComponent('PlanterList');
+    } catch (error) {
       setError(error.response?.data?.message || 'An error occurred');
     }
   };
@@ -36,31 +37,31 @@ const UpdatePlanter = ({ planter,setSelectedComponent  }) => {
       <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input type="text" name="name" value={planter.name} onChange={handleChange} />
+          <input type="text" name="name" value={updatedPlanter.name} onChange={handleChange} />
         </label>
         <label>
           Description:
-          <input type="text" name="description" value={planter.description} onChange={handleChange} />
+          <input type="text" name="description" value={updatedPlanter.description} onChange={handleChange} />
         </label>
         <label>
           Price:
-          <input type="number" name="price" value={planter.price} onChange={handleChange} />
+          <input type="number" name="price" value={updatedPlanter.price} onChange={handleChange} />
         </label>
         <label>
           Quantity:
-          <input type="number" name="quantity" value={planter.quantity} onChange={handleChange} />
+          <input type="number" name="quantity" value={updatedPlanter.quantity} onChange={handleChange} />
         </label>
         <label>
           Material:
-          <input type="text" name="material" value={planter.material} onChange={handleChange} />
+          <input type="text" name="material" value={updatedPlanter.material} onChange={handleChange} />
         </label>
         <label>
           Dimensions:
-          <input type="text" name="dimensions" value={planter.dimensions} onChange={handleChange} />
+          <input type="text" name="dimensions" value={updatedPlanter.dimensions} onChange={handleChange} />
         </label>
         <label>
           Color:
-          <input type="text" name="color" value={planter.color} onChange={handleChange} />
+          <input type="text" name="color" value={updatedPlanter.color} onChange={handleChange} />
         </label>
         <button type="submit">Update</button>
       </form>
