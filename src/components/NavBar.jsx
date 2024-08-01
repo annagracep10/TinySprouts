@@ -31,6 +31,11 @@ export const NavBar = ({ user, setUser }) => {
           <li>
             <Link to="/orders">Your Orders</Link>
           </li>
+          {user && user.userRole === 'ADMIN' && (
+            <li>
+              <Link to="/admin">Admin Dashboard</Link>
+            </li>
+          )}
           {user ? (
             <>
               <li>

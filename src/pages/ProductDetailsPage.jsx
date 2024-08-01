@@ -18,13 +18,13 @@ const ProductDetailPage = ({ user,setUser }) => {
         let response;
         switch (type) {
           case 'plant':
-            response = await axios.get(`http://localhost:9091/product/plant/${id}`);
+            response = await axios.get(`http://localhost:9090/api/product/plant/${id}`);
             break;
           case 'planter':
-            response = await axios.get(`http://localhost:9091/product/planter/${id}`);
+            response = await axios.get(`http://localhost:9090/api/product/planter/${id}`);
             break;
           case 'seed':
-            response = await axios.get(`http://localhost:9091/product/seed/${id}`);
+            response = await axios.get(`http://localhost:9090/api/product/seed/${id}`);
             break;
           default:
             throw new Error('Invalid product type');
@@ -44,6 +44,7 @@ const ProductDetailPage = ({ user,setUser }) => {
   const addToCart = async () => {
     if (!user) {
       alert('Please log in to add items to the cart.');
+      navigate('/');
       return;
     }
   

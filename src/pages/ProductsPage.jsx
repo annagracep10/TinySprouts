@@ -17,9 +17,9 @@ const ProductsPage = () => {
     const fetchProducts = async () => {
       try {
         const [plantRes, planterRes, seedRes] = await Promise.all([
-          axios.get('http://localhost:9091/product/plant'),
-          axios.get('http://localhost:9091/product/planter'),
-          axios.get('http://localhost:9091/product/seed'),
+          axios.get('http://localhost:9090/api/product/plants'),
+          axios.get('http://localhost:9090/api/product/planters'),
+          axios.get('http://localhost:9090/api/product/seeds'),
         ]);
         setPlants(plantRes.data);
         setPlanters(planterRes.data);

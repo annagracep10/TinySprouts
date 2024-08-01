@@ -17,7 +17,7 @@ export const RegisterForm = ({ setIsLogin }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:9090/api/user/create', {
+      const response = await fetch('http://localhost:9090/api/auth/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -52,8 +52,8 @@ export const RegisterForm = ({ setIsLogin }) => {
           <label>Role</label>
           <select value={userRole} required onChange={(event) => setUserRole(event.target.value)}>
             <option value="">Select Role</option>
-            <option value="Buyer">BUYER</option>
-            <option value="Admin">ADMIN</option>
+            <option value="BUYER">BUYER</option>
+            <option value="ADMIN">ADMIN</option>
           </select>
           <span> </span>
         </div>

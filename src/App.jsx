@@ -6,6 +6,7 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import OrdersPage from './pages/OrdersPage';
 import { NavBar } from './components/NavBar';
 import CartPage from './pages/CartPage';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -30,6 +31,9 @@ function App() {
         <Route path="/product/:type/:id" element={<ProductDetailsPage setUser={setUser} user={user}/>} />
         <Route path="/orders" element={<OrdersPage setUser={setUser} user={user}/>} />
         <Route path="/cart" element={<CartPage setUser={setUser} user={user} />} />
+        {user && user.userRole === 'ADMIN' && (
+          <Route path="/admin" element={<AdminDashboard/>} /> 
+        )}
       </Routes>
     </Router>
   );
