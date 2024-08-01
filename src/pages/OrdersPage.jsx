@@ -39,11 +39,11 @@ const OrdersPage = ({ user, setUser }) => {
       }
 
       const data = await response.json();
-      console.log('Fetched data:', data); // Log fetched data
+      console.log('Fetched data:', data); 
       setOrders(Array.isArray(data) ? data : []);
       setError(null);
     } catch (err) {
-      console.error('Error fetching orders:', err); // Log error details
+      console.error('Error fetching orders:', err); 
       setError(err.message || 'Failed to fetch orders');
     } finally {
       setLoading(false);
@@ -74,7 +74,7 @@ const OrdersPage = ({ user, setUser }) => {
 
       fetchOrders(userId);  
     } catch (err) {
-      console.error('Error cancelling order:', err); // Log error details
+      console.error('Error cancelling order:', err); 
       setError(err.message || 'Failed to cancel order');
     }
   };
