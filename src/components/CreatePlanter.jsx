@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const CreatePlanter = ({ setSelectedComponent }) => {
   const [error, setError] = useState('');
+  const [image,setImage]=useState("");
   const [planter, setPlanter] = useState({
     name: '',
     description: '',
@@ -22,10 +23,17 @@ const CreatePlanter = ({ setSelectedComponent }) => {
     });
   };
 
+  const handleImage=(e)=>{
+    setImage(e.target.files[0]);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+    const formData= new FormData();
+    formData.append('image',image)
     try {
+      await axios.post('http://localhost:5000/upload', formData);
       await axios.post('http://localhost:9090/api/admin/planter', planter, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -68,6 +76,10 @@ const CreatePlanter = ({ setSelectedComponent }) => {
         <label>
           Color:
           <input type="text" name="color" value={planter.color} onChange={handleChange} />
+        </label>
+        <label>
+          Upload Image (Ensure file name same as product name) :
+          <input type="file" name="file" onChange={handleImage}/>
         </label>
         <button type="submit">Create</button>
       </form>

@@ -90,7 +90,7 @@ const ProductDetailPage = ({ user,setUser }) => {
 
   if (!product) return <div>No product found</div>;
 
-  const imageUrl = `/images/${product.category}/${product.name}.jpg`;
+  const imageUrl = `/images/${product.name}.jpg`;
 
   return (
     <div>
