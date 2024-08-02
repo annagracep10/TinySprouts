@@ -48,7 +48,7 @@ export const RegisterForm = ({ setIsLogin }) => {
           <label>User Email</label>
           <input type="email" required value={userEmail} onChange={(event) => setUserEmail(event.target.value)} />
           <label>Password</label>
-          <input type="userPassword" required value={userPassword} onChange={(event) => setUserPassword(event.target.value)} />
+          <input type="password" required value={userPassword} onChange={(event) => setUserPassword(event.target.value)} />
           <label>Role</label>
           <select value={userRole} required onChange={(event) => setUserRole(event.target.value)}>
             <option value="">Select Role</option>

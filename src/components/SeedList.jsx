@@ -42,7 +42,7 @@ const SeedList = ({ setSelectedComponent, setSelectedSeed }) => {
             <th>Seed ID</th>
             <th>Seed Name</th>
             <th>Seed Type</th>
-            <th>Germination Time</th>
+            <th>Germination Time (Weeks)</th>
             <th>Season</th>
             <th>Quantity in Stock</th>
             <th>Price</th>
