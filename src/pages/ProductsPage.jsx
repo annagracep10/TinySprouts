@@ -6,12 +6,14 @@ import "../styles/Content.css"
 import "../styles/Product.css"
 
 
+
 const ProductsPage = () => {
   const [plants, setPlants] = useState([]);
   const [planters, setPlanters] = useState([]);
   const [seeds, setSeeds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   useEffect(() => {
     const fetchProducts = async () => {

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/OrdersPage.css";
+import { useAlert } from '../AlertContext';
 
 const OrdersPage = ({ user, setUser }) => {
   const navigate = useNavigate();
+  const { showAlert } = useAlert();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +30,7 @@ const OrdersPage = ({ user, setUser }) => {
 
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
-          alert('Session expired. Please log in again.');
+          showAlert('Session expired. Please log in again.');
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           setUser(null);
@@ -62,7 +64,7 @@ const OrdersPage = ({ user, setUser }) => {
 
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
-          alert('Session expired. Please log in again.');
+          showAlert('Session expired. Please log in again.');
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           setUser(null);
