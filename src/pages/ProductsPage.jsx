@@ -48,7 +48,7 @@ const ProductsPage = () => {
             <div key={plant.id} className="product-item">
               <Link to={`/product/plant/${plant.id}`}>
                 <img 
-                  src={`/images/plant/${plant.id}.jpg`} 
+                  src={`/images/plant/${plant.name}.jpg`} 
                   alt={plant.name} 
                   className="product-image" 
                   onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
@@ -69,7 +69,7 @@ const ProductsPage = () => {
             <div key={planter.id} className="product-item">
               <Link to={`/product/planter/${planter.id}`}>
                 <img 
-                  src={`/images/planter/${planter.id}.jpg`} 
+                  src={`/images/planter/${planter.name}.jpg`} 
                   alt={planter.name} 
                   className="product-image" 
                   onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
@@ -90,7 +90,7 @@ const ProductsPage = () => {
             <div key={seed.id} className="product-item">
               <Link to={`/product/seed/${seed.id}`}>
                 <img 
-                  src={`/images/seed/${seed.id}.jpg`} 
+                  src={`/images/seed/${seed.name}.jpg`} 
                   alt={seed.name} 
                   className="product-image" 
                   onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
