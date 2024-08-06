@@ -13,12 +13,11 @@ const OrdersPage = ({ user, setUser }) => {
 
   useEffect(() => {
     if (user) {
-      setUserId(user.userId);
-      fetchOrders(user.userId);
+      fetchOrders();
     }
   }, [user]);
 
-  const fetchOrders = async (userId) => {
+  const fetchOrders = async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
