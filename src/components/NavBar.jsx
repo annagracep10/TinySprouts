@@ -49,6 +49,11 @@ export const NavBar = ({ user, setUser }) => {
           {user ? (
             <>
               <li>
+              <NavLink to="/account" className={({ isActive }) => isActive ? "active" : ""}>
+                Account Details
+              </NavLink>
+            </li>
+              <li>
                 <button onClick={handleLogout} className="logout-button">Logout</button>
               </li>
               <li>
