@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PasswordInput from './PasswordInput';
 
 export const LoginForm = ({ setIsLogin, setUser }) => {
   const [userEmail, setUserEmail] = useState('');
@@ -60,7 +61,7 @@ export const LoginForm = ({ setIsLogin, setUser }) => {
           <label>User Email</label>
           <input type="email" required value={userEmail} onChange={(event) => setUserEmail(event.target.value)} />
           <label>Password</label>
-          <input type="password" required value={password} onChange={(event) => setPassword(event.target.value)} />
+          <PasswordInput password={password} setPassword={setPassword} />
         </div>
         <button type="submit">Login</button>
       </form>
