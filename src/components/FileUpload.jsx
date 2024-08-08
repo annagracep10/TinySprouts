@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useAlert } from '../AlertContext';
 
-const FileUpload = () => {
+const FileUpload = ({ setSelectedComponent }) => {
+    const { showAlert } = useAlert();
     const [file, setFile] = useState(null);
     const [productId, setProductId] = useState('');
     const [productType, setProductType] = useState('plant');
@@ -35,6 +37,8 @@ const FileUpload = () => {
                 },
             });
             console.log(response.data);
+            showAlert("Image Uploaded !!!");
+            setSelectedComponent('UserList');
         } catch (error) {
             console.error('Error uploading file:', error);
         }

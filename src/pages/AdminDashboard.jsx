@@ -48,7 +48,7 @@ const AdminDashboard = () => {
       case 'UpdateSeed':
         return <UpdateSeed seed={selectedSeed} setSelectedComponent={setSelectedComponent} />;
       case 'FileUpload':
-        return <FileUpload/>;
+        return <FileUpload setSelectedComponent={setSelectedComponent}/>;
       default:
         return <UserList setSelectedComponent={setSelectedComponent} setSelectedUser={setSelectedUser} />;
     }
