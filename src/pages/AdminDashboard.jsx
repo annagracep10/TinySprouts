@@ -12,6 +12,7 @@ import SeedList from '../components/SeedList';
 import CreateSeed from '../components/CreateSeed';
 import UpdateSeed from '../components/UpdateSeed';
 import "../styles/AdminDashboard.css";
+import FileUpload from '../components/FileUpload';
 
 const AdminDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState('UserList');
@@ -46,6 +47,8 @@ const AdminDashboard = () => {
         return <CreateSeed setSelectedComponent={setSelectedComponent} />;
       case 'UpdateSeed':
         return <UpdateSeed seed={selectedSeed} setSelectedComponent={setSelectedComponent} />;
+      case 'FileUpload':
+        return <FileUpload/>;
       default:
         return <UserList setSelectedComponent={setSelectedComponent} setSelectedUser={setSelectedUser} />;
     }
@@ -62,6 +65,7 @@ const AdminDashboard = () => {
         <button onClick={() => setSelectedComponent('CreatePlanter')}>Create Planter</button>
         <button onClick={() => setSelectedComponent('SeedList')}>Seeds</button>
         <button onClick={() => setSelectedComponent('CreateSeed')}>Create Seed</button>
+        <button onClick={() => setSelectedComponent('FileUpload')}>Image Upload</button>
       </div>
       <div className="main-content">
         {renderComponent()}

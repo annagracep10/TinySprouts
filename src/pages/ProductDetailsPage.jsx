@@ -91,8 +91,9 @@ const ProductDetailPage = ({ user,setUser }) => {
   if (error) return <div>Error: {error}</div>;
 
   if (!product) return <div>No product found</div>;
-
-  const imageUrl = `/images/${product.name}.jpg`;
+  console.log(product)
+  
+  
 
   return (
     <div>
@@ -100,12 +101,12 @@ const ProductDetailPage = ({ user,setUser }) => {
         <h1>Product Detail</h1>
         <div className='product-detail'>
           <img
-            src={imageUrl}
+            src={`data:image/jpeg;base64,${product.image}`}
             alt={product.name}
             className='product-image'
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = '/images/default.jpg';
+              e.target.src = '/images/noImage.jpg';
             }}
           />
           <div className='product-detailinfo'>

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const CreatePlant = ({ setSelectedComponent }) => {
   const [error, setError] = useState('');
-  const [image,setImage]=useState("");
   const [plant, setPlant] = useState({
     name: '',
     description: '',
@@ -23,17 +22,10 @@ const CreatePlant = ({ setSelectedComponent }) => {
     });
   };
 
-  const handleImage=(e)=>{
-    setImage(e.target.files[0]);
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    const formData= new FormData();
-    formData.append('image',image)
     try {
-      await axios.post('http://localhost:5000/upload', formData);
       await axios.post('http://localhost:9090/api/admin/plant', plant, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -76,10 +68,6 @@ const CreatePlant = ({ setSelectedComponent }) => {
         <label>
           Watering Frequency:
           <input type="text" name="wateringFrequency" value={plant.wateringFrequency} onChange={handleChange} />
-        </label>
-        <label>
-          Upload Image (Ensure file name same as product name) :
-          <input type="file" name="file" onChange={handleImage}/>
         </label>
         <button type="submit">Create</button>
       </form>

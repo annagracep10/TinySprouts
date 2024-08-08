@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { NavBar } from '../components/NavBar';
 import "../styles/Content.css"
 import "../styles/Product.css"
 
@@ -50,10 +49,10 @@ const ProductsPage = () => {
             <div key={plant.id} className="product-item">
               <Link to={`/product/plant/${plant.id}`}>
                 <img 
-                  src={`/images/${plant.name}.jpg`} 
+                  src={`data:image/jpeg;base64,${plant.image}`} 
                   alt={plant.name} 
                   className="product-image" 
-                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/noImage.jpg'; }} // Fallback image
                 />
               </Link>     
                 <div className="product-info">
@@ -71,10 +70,10 @@ const ProductsPage = () => {
             <div key={planter.id} className="product-item">
               <Link to={`/product/planter/${planter.id}`}>
                 <img 
-                  src={`/images/${planter.name}.jpg`} 
+                  src={`data:image/jpeg;base64,${planter.image}`} 
                   alt={planter.name} 
                   className="product-image" 
-                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
+                  onError={(e) => { e.target.onerror = null; e.target.src =  '/images/noImage.jpg'; }} 
                 />
               </Link>
                 <div className="product-info">
@@ -92,10 +91,10 @@ const ProductsPage = () => {
             <div key={seed.id} className="product-item">
               <Link to={`/product/seed/${seed.id}`}>
                 <img 
-                  src={`/images/${seed.name}.jpg`} 
+                  src={`data:image/jpeg;base64,${seed.image}`} 
                   alt={seed.name} 
                   className="product-image" 
-                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/default.jpg'; }} // Fallback image
+                  onError={(e) => { e.target.onerror = null; e.target.src = '/images/noImage.jpg'; }} // Fallback image
                 />
               </Link>
                 <div className="product-info">
