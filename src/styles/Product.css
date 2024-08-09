@@ -26,6 +26,12 @@
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
   }
+
+  .content input {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 1rem;
+  }
   
   .product-info {
     display: flex;
