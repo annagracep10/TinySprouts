@@ -165,7 +165,6 @@ const CartPage = ({ user, setUser }) => {
   
               if (verifyResponse.data) {
                 showAlert('Payment verified and order placed successfully');
-                // Additional actions after successful payment verification
               } else {
                 showAlert('Payment verification failed');
               }
