@@ -30,7 +30,6 @@ const AccountPage = () => {
         'Authorization': `Bearer ${token}` 
       },
       body: JSON.stringify({
-        userId: user.userId,
         currentPassword,
         newPassword
       })
