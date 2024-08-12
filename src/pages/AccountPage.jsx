@@ -5,17 +5,42 @@ import { useAlert } from '../AlertContext';
 const AccountPage = () => {
   const { showAlert } = useAlert();
   const [user, setUser] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [userFullName, setUserFullName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    const fetchUserDetails = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await fetch('http://localhost:9090/api/auth/user-details', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+          setUserFullName(data.userFullName);
+          setUserEmail(data.userEmail);
+          setPhone(data.phone);
+          setAddress(data.address);
+        } else {
+          showAlert('Failed to fetch user details');
+        }
+      } catch (error) {
+        showAlert('An error occurred while fetching user details');
+      }
+    };
+
+    fetchUserDetails();
+  }, [showAlert]);
 
   const handleChangePassword = async () => {
     if (newPassword !== confirmNewPassword) {
@@ -23,24 +48,61 @@ const AccountPage = () => {
       return;
     }
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:9090/api/user/change-password', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
-      },
-      body: JSON.stringify({
-        currentPassword,
-        newPassword
-      })
-    });
+    try {
+      const response = await fetch('http://localhost:9090/api/user/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, 
+        },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+        }),
+      });
 
-    if (response.ok) {
-      showAlert('Password changed successfully');
-      setIsModalOpen(false);
-    } else {
-      const errorData = await response.json();
-      showAlert(`Error: ${errorData.message}`);
+      if (response.ok) {
+        showAlert('Password changed successfully');
+        setIsPasswordModalOpen(false);
+      } else {
+        const errorData = await response.json();
+        showAlert(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      showAlert('An error occurred while changing password');
+    }
+  };
+
+  const handleEditDetails = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:9090/api/user/update/${user.userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userFullName,
+          userEmail,
+          userPassword : user.userPassword,
+          phone,
+          address,
+          userRole : user.userRole
+        }),
+      });
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+        setUser(updatedUser);
+        showAlert('Details updated successfully');
+        setIsEditModalOpen(false);
+      } else {
+        const errorData = await response.json();
+        showAlert(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      showAlert('An error occurred while updating details');
     }
   };
 
@@ -54,14 +116,19 @@ const AccountPage = () => {
       <div className="user-details">
         <p><strong>Full Name:</strong> {user.userFullName}</p>
         <p><strong>Email:</strong> {user.userEmail}</p>
+        <p><strong>Phone:</strong> {phone}</p>
+        <p><strong>Address:</strong> {address}</p>
       </div>
-      <div className="changePass">
-        <button onClick={() => setIsModalOpen(true)}>Change Password</button>
+      <div className="buttons">
+        <button onClick={() => setIsPasswordModalOpen(true)}>Change Password</button>
+        <br />
+        <button onClick={() => setIsEditModalOpen(true)}>Edit Details</button>
       </div>
 
+      {/* Password Change Modal */}
       <Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
+        isOpen={isPasswordModalOpen}
+        onRequestClose={() => setIsPasswordModalOpen(false)}
         contentLabel="Change Password"
         className="modal"
         overlayClassName="overlay"
@@ -99,7 +166,60 @@ const AccountPage = () => {
             />
           </div>
           <button type="submit">Change Password</button>
-          <button type="button" onClick={() => setIsModalOpen(false)}>Cancel</button>
+          <button type="button" onClick={() => setIsPasswordModalOpen(false)}>Cancel</button>
+        </form>
+      </Modal>
+
+      {/* Edit Details Modal */}
+      <Modal
+        isOpen={isEditModalOpen}
+        onRequestClose={() => setIsEditModalOpen(false)}
+        contentLabel="Edit Details"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Edit Details</h2>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleEditDetails();
+        }}>
+          <div>
+            <label>Full Name:</label>
+            <input
+              type="text"
+              value={userFullName}
+              onChange={(e) => setUserFullName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Email:</label>
+            <input
+              type="email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Phone:</label>
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Address:</label>
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          <button type="submit">Save Changes</button>
+          <button type="button" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
         </form>
       </Modal>
     </div>

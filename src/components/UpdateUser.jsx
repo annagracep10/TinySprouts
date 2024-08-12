@@ -5,7 +5,9 @@ const UpdateUser = ({ user ,setSelectedComponent }) => {
   const [formData, setFormData] = useState({
     userFullName: user.userFullName,
     userEmail: user.userEmail,
-    userPassword: '',
+    userPassword: user.userPassword,
+    phone : user.phone,
+    address : user.address,
     userRole: user.userRole,
   });
   const [error, setError] = useState(null);
@@ -47,6 +49,14 @@ const UpdateUser = ({ user ,setSelectedComponent }) => {
         <label>
           Email:
           <input type="email" required name="userEmail" value={formData.userEmail} onChange={handleChange} />
+        </label>
+        <label>
+          Mobile Number:
+          <input type="number" name="phone" value={formData.phone} onChange={handleChange} />
+        </label>
+        <label>
+          Address:
+          <input type="text"  name="address" value={formData.address} onChange={handleChange} />
         </label>
         <label>
           Password:
