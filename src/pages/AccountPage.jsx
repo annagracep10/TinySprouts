@@ -99,8 +99,14 @@ const AccountPage = () => {
         setIsEditModalOpen(false);
       } else {
         const errorData = await response.json();
-        showAlert(`Error: ${errorData.message}`);
-      }
+        const errorMessage = errorData.message || errorData.error || 'An unknown error occurred';
+      
+        if (errorData.phone) {
+          showAlert(`Error: ${errorData.phone}`);
+        } else {
+          showAlert(`Error: ${errorMessage}`);
+        }
+    }
     } catch (error) {
       showAlert('An error occurred while updating details');
     }
