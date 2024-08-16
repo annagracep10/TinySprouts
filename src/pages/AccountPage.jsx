@@ -207,7 +207,6 @@ const AccountPage = () => {
               type="text"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              required
             />
           </div>
           <div>
