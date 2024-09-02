@@ -1,12 +1,8 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LabelList
-} from 'recharts';
-import { Spin, Typography } from 'antd';  
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const { Title } = Typography;  
-
+// GraphQL query to fetch top products
 const GET_TOP_PRODUCTS = gql`
   query GetTopProducts($limit: Int!) {
     getTopProducts(limit: $limit) {
@@ -18,45 +14,36 @@ const GET_TOP_PRODUCTS = gql`
 `;
 
 const TopProducts = ({ limit = 5 }) => {
-
+  // Use the `useQuery` hook with `fetchPolicy: 'network-only'`
   const { loading, error, data } = useQuery(GET_TOP_PRODUCTS, {
     variables: { limit },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'network-only',  // Always fetch fresh data from the server
   });
 
-  if (loading) return <Spin size="large" />;  
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // Prepare data for the chart
   const chartData = data.getTopProducts.map(product => ({
     name: product.productName,
     quantity: product.totalQuantity,
   }));
 
   return (
-    <div style={{ padding: '20px', background: '#f0f2f5', borderRadius: '8px' }}>
-      <Title level={3} style={{ textAlign: 'center', marginBottom: '20px' }}>
-        Top {limit} Products
-      </Title>
+    <div>
+      <h2>Top {limit} Products</h2>
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
           data={chartData}
           margin={{
             top: 20, right: 30, left: 20, bottom: 5,
           }}
-          style={{ fontFamily: 'Roboto, sans-serif' }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip
-            contentStyle={{ backgroundColor: '#333', border: 'none' }}
-            itemStyle={{ color: '#fff' }}
-            cursor={{ fill: 'rgba(255, 255, 255, 0.2)' }}
-          />
-          <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
-          <Bar dataKey="quantity" fill="#1890ff" barSize={40} radius={[10, 10, 0, 0]}>
-            <LabelList dataKey="quantity" position="top" style={{ fill: '#333', fontWeight: 'bold' }} />
-          </Bar>
+          <Tooltip />
+          <Bar dataKey="quantity" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
     </div>
