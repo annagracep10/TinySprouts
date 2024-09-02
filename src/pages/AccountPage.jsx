@@ -84,7 +84,7 @@ const AccountPage = () => {
         },
         body: JSON.stringify({
           userFullName,
-          userEmail,
+          userEmail : user.userEmail,
           userPassword : user.userPassword,
           phone,
           address,

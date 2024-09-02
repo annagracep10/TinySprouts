@@ -1,74 +1,99 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useAlert } from '../AlertContext'; // Assuming you have an AlertContext for displaying alerts
 
-const UpdateUser = ({ user ,setSelectedComponent }) => {
-  const [formData, setFormData] = useState({
-    userFullName: user.userFullName,
-    userEmail: user.userEmail,
-    userPassword: user.userPassword,
-    phone : user.phone,
-    address : user.address,
-    userRole: user.userRole,
-  });
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+const UpdateUser = ({ user, setSelectedComponent }) => {
+  const { showAlert } = useAlert(); // Use the showAlert function from the context
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const [userFullName, setUserFullName] = useState(user.userFullName);
+  const [userEmail] = useState(user.userEmail);
+  const [phone, setPhone] = useState(user.phone || '');
+  const [address, setAddress] = useState(user.address || '');
+  const [userRole, setUserRole] = useState(user.userRole);
+  const [userPassword] = useState(user.userPassword);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      await axios.put(`http://localhost:9090/api/user/update/${user.userId}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.put(
+        `http://localhost:9090/api/user/update/${user.userId}`,
+        {
+          userFullName,
+          userEmail,
+          userPassword,
+          phone,
+          address,
+          userRole
         },
-      });
-      setSuccess('User updated successfully');
-      setSelectedComponent('UserList');
-      setError(null);
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        showAlert('User updated successfully');
+        setSelectedComponent('UserList');
+      } else {
+        const errorMessage = response.data.message || 'Failed to update user';
+        showAlert(`Error: ${errorMessage}`);
+      }
     } catch (err) {
-      setError('Failed to update user');
-      setSuccess(null);
+      const errorMessage = err.response?.data?.message || 'Failed to update user';
+      showAlert(`Error: ${errorMessage}`);
     }
   };
 
   return (
     <div>
       <h2>Update User</h2>
-      {error && <div>{error}</div>}
-      {success && <div>{success}</div>}
       <form onSubmit={handleSubmit}>
-        <label>
-          Full Name:
-          <input type="text" required name="userFullName" value={formData.userFullName} onChange={handleChange} />
-        </label>
-        <label>
-          Email:
-          <input type="email" required name="userEmail" value={formData.userEmail} onChange={handleChange} />
-        </label>
-        <label>
-          Mobile Number:
-          <input type="number" name="phone" value={formData.phone} onChange={handleChange} />
-        </label>
-        <label>
-          Address:
-          <input type="text"  name="address" value={formData.address} onChange={handleChange} />
-        </label>
-        <label>
-          Password:
-          <input type="password" required name="userPassword" value={formData.userPassword} onChange={handleChange} />
-        </label>
-        <label>
-          Role:
-          <select name="userRole" required value={formData.userRole} onChange={handleChange}>
+        <div>
+          <label>Full Name:</label>
+          <input
+            type="text"
+            value={userFullName}
+            onChange={(e) => setUserFullName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={userEmail}
+            disabled
+          />
+        </div>
+        <div>
+          <label>Mobile Number:</label>
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Address:</label>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Role:</label>
+          <select
+            value={userRole}
+            onChange={(e) => setUserRole(e.target.value)}
+            required
+          >
             <option value="ADMIN">ADMIN</option>
             <option value="BUYER">BUYER</option>
           </select>
-        </label>
+        </div>
         <button type="submit">Update User</button>
       </form>
     </div>
