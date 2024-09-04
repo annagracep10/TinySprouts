@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChatBot from './ChatBot'; // Assuming you have a ChatBot component
+import ChatBot from './ChatBot'; 
 import '../styles/ChatBot.css';
 
 const ChatBotIcon = () => {

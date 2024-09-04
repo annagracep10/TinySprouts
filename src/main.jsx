@@ -15,7 +15,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// Step 2: Wrap your application with ApolloProvider
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ApolloProvider client={client}> 
