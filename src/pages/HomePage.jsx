@@ -3,6 +3,7 @@ import { NavBar } from '../components/NavBar';
 import "../styles/HomePage.css";
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
+import ChatBotIcon from '../components/ChatBotIcon';
 
 const HomePage = ({ setUser, user }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -28,6 +29,7 @@ const HomePage = ({ setUser, user }) => {
             )
           )}
         </div>
+        <ChatBotIcon />
       </div>
     </div>
   );

@@ -1,0 +1,144 @@
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; 
+    z-index: 1000;
+    width: 350px;
+}
+
+
+.chatbot-icon {
+    width: 129px;
+    height: 145px;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1100; 
+}
+
+.chatbot-icon.open  {
+    left: 364px;
+}
+
+.animated-icon {
+    width: 100%;
+    height: 100%;
+    animation: bounce 2s infinite;
+    border-radius: 50%;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.chatbot-popup {
+    position: absolute;
+    bottom: 70px; 
+    left: 0; 
+    width: 350px;
+    max-height: 500px; 
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column; 
+}
+
+.chat-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    flex-shrink: 0; 
+}
+
+.chat-window {
+    flex: 1; 
+    padding: 10px;
+    overflow-y: auto; 
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-height: 400px; 
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.user-message, .bot-message {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #DCF8C6;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #ECECEC;
+    align-self: flex-start;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
+    flex-shrink: 0; 
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.chat-input input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.send-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: #45A049;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
